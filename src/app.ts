@@ -26,13 +26,13 @@ const app = express();
     const server = new ApolloServer({
       typeDefs,
       resolvers,
+      introspection: true,
       plugins: [
-        process.env.ENVIRONMENT === 'production'
+        process.env.NODE_ENV === 'production'
           ? ApolloServerPluginLandingPageProductionDefault({
-              graphRef: 'my-graph-id@my-graph-variant',
-              footer: false,
+              embed: true as false,
             })
-          : ApolloServerPluginLandingPageLocalDefault({footer: false}),
+          : ApolloServerPluginLandingPageLocalDefault(),
       ],
       includeStacktraceInErrorResponses: false,
     });
